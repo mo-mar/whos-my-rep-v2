@@ -1,9 +1,7 @@
+import Layout from './components/Layout/Layout'
+
 function App() {
-  return (
-    <div className="App">
-      <h1 data-testid="app-header">This is the app</h1>
-    </div>
-  )
+  return <Layout></Layout>
 }
 
 export default App
