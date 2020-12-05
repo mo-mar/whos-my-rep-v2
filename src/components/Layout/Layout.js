@@ -5,6 +5,9 @@ const StyledLayout = styled.div`
   width: 100%;
   max-width: 400px;
   padding: 1rem;
+  display: grid;
+  grid-template-columns: 1fr;
+  grid-template-rows: auto 1fr;
   @media (min-width: 400px) {
     max-width: 800px;
   }
