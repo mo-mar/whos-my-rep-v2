@@ -1,8 +1,10 @@
+import Layout from './components/Layout/Layout'
+import PostalCodeForm from './components/PostalCodeForm/PostalCodeForm'
 function App() {
   return (
-    <div className="App">
-      <h1 data-testid="app-header">This is the app</h1>
-    </div>
+    <Layout>
+      <PostalCodeForm />
+    </Layout>
   )
 }
 
