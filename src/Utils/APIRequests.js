@@ -22,7 +22,6 @@ export async function getRepresentatives(postalCode) {
   })
 
   if (response && response.data.objects) {
-    console.log(response)
     return response.data.objects
   }
 }
@@ -33,7 +32,7 @@ export async function getCoordinates(postalCode) {
       method: 'GET',
       dataResponse: 'JSON',
       params: {
-        key: secrets.APIkey,
+        key: secrets.APIKEY,
         location: postalCode,
       },
     })
