@@ -5,6 +5,7 @@
 /.pnp
 .pnp.js
 
+
 # testing
 /coverage
 
@@ -24,3 +25,4 @@ yarn-error.log*
 .prettierrc
 .prettierignore
 .vscode
+src/secrets.json

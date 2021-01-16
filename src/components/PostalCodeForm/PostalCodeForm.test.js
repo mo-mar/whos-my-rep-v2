@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import { render, screen } from '@testing-library/react'
 import PostalCodeForm from './PostalCodeForm'
 import userEvent from '@testing-library/user-event'
 
