@@ -1,5 +1,6 @@
 import styled from 'styled-components'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
+import { getRepresentatives } from '../../Utils/APIRequests'
 
 const StyledPostalCodeForm = styled.form`
   display: flex;
@@ -16,28 +17,38 @@ const StyledPostalCodeForm = styled.form`
 
 export default function PostalCodeForm() {
   const [postalCode, setPostalCode] = useState('')
+  const [postalCodeIsValid, setPostalCodeIsValid] = useState(false)
   const [error, setError] = useState('')
 
-  const handleSubmit = () => {}
-
-  const handleChange = typedPostalCode => {
-    if (!typedPostalCode) {
+  useEffect(() => {
+    if (!postalCode) {
       return
     }
-    let regex = /^([A-Za-z]\d[A-Za-z][-]?\d[A-Za-z]\d)/
-    if (regex.test(typedPostalCode)) {
-      if (error) {
-        setPostalCode(typedPostalCode)
+    const validatePostalCode = () => {
+      let regex = /^([A-Za-z]\d[A-Za-z][-]?\d[A-Za-z]\d)/
+      if (regex.test(postalCode)) {
+        setPostalCodeIsValid(true)
         setError('')
+        return
+      } else {
+        setError('Postal code is invalid')
+        return
       }
-    } else {
-      setError('Postal code is invalid')
     }
+    validatePostalCode()
+  }, [postalCode])
+
+  const handleSubmit = async function (e) {
+    e.preventDefault()
+    if (!postalCodeIsValid) {
+      return
+    }
+    getRepresentatives(postalCode)
   }
 
   return (
     <StyledPostalCodeForm
-      onSubmit={handleSubmit}
+      onSubmit={e => handleSubmit(e)}
       data-testid="postal-code-form"
     >
       <label data-testid="form-label">
@@ -45,11 +56,15 @@ export default function PostalCodeForm() {
         <input
           type="text"
           name="postal-code"
+          value={postalCode}
           required
           data-testid="postal-code-input"
-          onChange={e => handleChange(e.target.value)}
+          onChange={e => setPostalCode(e.target.value.toUpperCase())}
         />
       </label>
+      <button data-testid="submit-button" disabled={error} type="submit">
+        Submit
+      </button>
       {error ? <div data-testid="postal-code-error">{error}</div> : null}
     </StyledPostalCodeForm>
   )
