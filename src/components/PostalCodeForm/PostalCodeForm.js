@@ -15,7 +15,7 @@ const StyledPostalCodeForm = styled.form`
   }
 `
 
-export default function PostalCodeForm() {
+export default function PostalCodeForm({ setRepresentatives }) {
   const [postalCode, setPostalCode] = useState('')
   const [postalCodeIsValid, setPostalCodeIsValid] = useState(false)
   const [error, setError] = useState('')
@@ -43,7 +43,11 @@ export default function PostalCodeForm() {
     if (!postalCodeIsValid) {
       return
     }
-    getRepresentatives(postalCode)
+    let reps = await getRepresentatives(postalCode)
+    if (!reps.length) {
+      return
+    }
+    setRepresentatives(reps)
   }
 
   return (
