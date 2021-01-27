@@ -15,7 +15,7 @@ const StyledPostalCodeForm = styled.form`
   }
 `
 
-export default function PostalCodeForm({ setRepresentatives }) {
+export default function PostalCodeForm({ handleSubmit }) {
   const [postalCode, setPostalCode] = useState('')
   const [postalCodeIsValid, setPostalCodeIsValid] = useState(false)
   const [error, setError] = useState('')
@@ -38,21 +38,9 @@ export default function PostalCodeForm({ setRepresentatives }) {
     validatePostalCode()
   }, [postalCode])
 
-  const handleSubmit = async function (e) {
-    e.preventDefault()
-    if (!postalCodeIsValid) {
-      return
-    }
-    let reps = await getRepresentatives(postalCode)
-    if (!reps.length) {
-      return
-    }
-    setRepresentatives(reps)
-  }
-
   return (
     <StyledPostalCodeForm
-      onSubmit={e => handleSubmit(e)}
+      onSubmit={e => handleSubmit(e, postalCode)}
       data-testid="postal-code-form"
     >
       <label data-testid="form-label">
@@ -63,10 +51,16 @@ export default function PostalCodeForm({ setRepresentatives }) {
           value={postalCode}
           required
           data-testid="postal-code-input"
-          onChange={e => setPostalCode(e.target.value.toUpperCase())}
+          onChange={e =>
+            setPostalCode(e.target.value.toUpperCase().replace(/\s/g, ''))
+          }
         />
       </label>
-      <button data-testid="submit-button" disabled={error} type="submit">
+      <button
+        data-testid="submit-button"
+        disabled={!postalCodeIsValid}
+        type="submit"
+      >
         Submit
       </button>
       {error ? <div data-testid="postal-code-error">{error}</div> : null}
