@@ -25,12 +25,23 @@ source_url: "https://www.ola.org/en/members/current/contact-information"
 url: "https://www.ola.org/en/members/all/bhutila-karpoche"} param0 
  */
 
+import styled from 'styled-components'
+
+const StyledRepresentative = styled.li`
+  border: 1px solid tomato;
+  display: flex;
+  flex-direction: column;
+  row-gap: 1rem;
+`
+
 export default function Representative({ repData }) {
   return (
-    <div>
+    <StyledRepresentative>
       {/* Todo: only add image if it is not broken, i.e. has height and/or width */}
       {repData.photo_url ? (
-        <img src={repData.photo_url} alt={`${repData.name}`} />
+        <div>
+          <img src={repData.photo_url} alt={`${repData.name}`} />
+        </div>
       ) : null}
       <h1>{repData.name}</h1>
       <h2>
@@ -42,6 +53,6 @@ export default function Representative({ repData }) {
       <div>
         <a href={repData.source_url}>Source</a>
       </div>
-    </div>
+    </StyledRepresentative>
   )
 }

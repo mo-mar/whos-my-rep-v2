@@ -1,11 +1,22 @@
 import Representative from '../Representative/Representative'
+import styled from 'styled-components'
+import { v4 as uuidv4 } from 'uuid'
 
-export default function RepresentativeList({ reps }) {
+const StyledRepresentativeList = styled.div`
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
+  overflow-y: auto;
+  border: 2px solid blue;
+`
+export default function RepresentativeList({ reps, officeType }) {
   let renderedReps = reps.map(rep => {
-    // To do: give each rep a unique id with uuid for key
-    return (
-      <Representative repData={rep} key={`${rep.name} + ${Math.random()}`} />
-    )
+    return <Representative key={uuidv4()} repData={rep} />
   })
-  return <div>{renderedReps}</div>
+  return (
+    <StyledRepresentativeList>
+      {reps.length ? <h2>{officeType}:</h2> : null}
+      <ul>{renderedReps}</ul>
+    </StyledRepresentativeList>
+  )
 }

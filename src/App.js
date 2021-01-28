@@ -1,13 +1,14 @@
 import { useState, useEffect } from 'react'
 import Layout from './components/Layout/Layout'
 import PostalCodeForm from './components/PostalCodeForm/PostalCodeForm'
-import Representatives from './components/Representatives/Representatives'
+import RepresentativesContainer from './components/RepresentativesContainer/RepresentativesContainer'
 import { getRepresentatives } from './Utils/APIRequests'
 
 function App() {
   const [representatives, setRepresentatives] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+
   useEffect(() => {
     if (representatives.length) {
       setIsLoading(false)
@@ -19,16 +20,16 @@ function App() {
     setIsLoading(true)
 
     getRepresentatives(postalCode).then(res => {
-      if (res.length) {
+      try {
         setRepresentatives(res)
-      } else {
-        setError(res)
+      } catch (e) {
+        setError(e)
       }
     })
   }
 
-  let repList = representatives.length ? (
-    <Representatives representatives={representatives} />
+  let representativesContainer = representatives.length ? (
+    <RepresentativesContainer representatives={representatives} />
   ) : null
 
   let loadingSpinner = isLoading ? <span>loading...</span> : null
@@ -37,10 +38,9 @@ function App() {
     <Layout>
       <PostalCodeForm
         handleSubmit={handleFormSubmit}
-        setRepresentatives={setRepresentatives}
         setIsLoading={setIsLoading}
       />
-      {repList}
+      {representativesContainer}
       {error ? <p>{error}</p> : null}
       {loadingSpinner}
     </Layout>

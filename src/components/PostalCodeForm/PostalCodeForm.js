@@ -1,6 +1,5 @@
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
-import { getRepresentatives } from '../../Utils/APIRequests'
 
 const StyledPostalCodeForm = styled.form`
   display: flex;
@@ -24,8 +23,10 @@ export default function PostalCodeForm({ handleSubmit }) {
     if (!postalCode) {
       return
     }
+
     const validatePostalCode = () => {
       let regex = /^([A-Za-z]\d[A-Za-z][-]?\d[A-Za-z]\d)/
+
       if (regex.test(postalCode)) {
         setPostalCodeIsValid(true)
         setError('')

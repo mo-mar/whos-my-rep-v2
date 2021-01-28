@@ -25,7 +25,7 @@ export async function getRepresentatives(postalCode) {
       dataResponse: 'JSON',
       params: {
         point: `${lat}, ${lng}`,
-        limit: 1000,
+        limit: 100,
       },
     })
     if (response && response.data.objects) {

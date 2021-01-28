@@ -9,7 +9,7 @@ const StyledLayout = styled.div`
   display: grid;
   grid-template-columns: 1fr;
   grid-row-gap: 2rem;
-  grid-template-rows: auto 1fr;
+  grid-template-rows: auto auto 1fr;
   @media (min-width: 400px) {
     max-width: 800px;
   }
