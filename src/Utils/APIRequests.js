@@ -12,9 +12,11 @@ export async function getRepresentatives(postalCode) {
 
   let url
   // temporary workaround for CORS in local development
+  // http(s)://thingproxy.freeboard.io/fetch/
+  // https://cors-anywhere.herokuapp.com
   if (window.location.host === 'localhost:3000') {
     url =
-      'https://cors-anywhere.herokuapp.com/https://represent.opennorth.ca/representatives'
+      'https://thingproxy.freeboard.io/fetch/https://represent.opennorth.ca/representatives'
   } else {
     url = 'https://represent.opennorth.ca/representatives'
   }

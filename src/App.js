@@ -3,6 +3,7 @@ import Layout from './components/Layout/Layout'
 import PostalCodeForm from './components/PostalCodeForm/PostalCodeForm'
 import RepresentativesContainer from './components/RepresentativesContainer/RepresentativesContainer'
 import { getRepresentatives } from './Utils/APIRequests'
+import Loader from 'react-loader-spinner'
 
 function App() {
   const [representatives, setRepresentatives] = useState([])
@@ -10,29 +11,33 @@ function App() {
   const [error, setError] = useState('')
 
   useEffect(() => {
-    if (representatives.length) {
+    if (representatives.length || error) {
       setIsLoading(false)
     }
-  }, [representatives])
+  }, [representatives, error])
 
   const handleFormSubmit = (e, postalCode) => {
     e.preventDefault()
     setIsLoading(true)
 
     getRepresentatives(postalCode).then(res => {
-      try {
+      if (res.length) {
         setRepresentatives(res)
-      } catch (e) {
-        setError(e)
+      } else {
+        alert(res)
+        setError('Request failed. Please try again later.')
       }
     })
   }
 
-  let representativesContainer = representatives.length ? (
-    <RepresentativesContainer representatives={representatives} />
-  ) : null
+  let representativesContainer =
+    !isLoading && representatives.length ? (
+      <RepresentativesContainer representatives={representatives} />
+    ) : null
 
-  let loadingSpinner = isLoading ? <span>loading...</span> : null
+  let loadingSpinner = isLoading ? (
+    <Loader type="Bars" color="#00BFFF" height={60} width={60} />
+  ) : null
 
   return (
     <Layout>

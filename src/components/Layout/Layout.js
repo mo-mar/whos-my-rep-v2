@@ -4,12 +4,14 @@ import styled from 'styled-components'
 const StyledLayout = styled.div`
   width: 100%;
   height: 100vh;
-  max-width: 400px;
-  padding: 1rem;
+  max-width: 350px;
+  padding: 1.5rem 0.5rem;
+  margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr;
   grid-row-gap: 2rem;
   grid-template-rows: auto auto 1fr;
+  justify-items: center;
   @media (min-width: 400px) {
     max-width: 800px;
   }

@@ -26,29 +26,59 @@ url: "https://www.ola.org/en/members/all/bhutila-karpoche"} param0
  */
 
 import styled from 'styled-components'
+import fallBackImage from '../../Images/blank-profile-pic.png'
 
+import { useState, useEffect } from 'react'
 const StyledRepresentative = styled.li`
-  border: 1px solid tomato;
+  border: 1px solid black;
+  padding: 0.8rem;
+  border-radius: 5%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  justify-content: center;
   row-gap: 1rem;
 `
 
+const RepImageContainer = styled.div`
+  width: 70%;
+  margin-top: 0.8rem;
+  img {
+    width: 100%;
+    border-radius: 10%;
+  }
+`
+
 export default function Representative({ repData }) {
+  const [imageError, setImageError] = useState(false)
+  const [shouldUseFallBackImage, setShouldUseFallBackImage] = useState(false)
+
+  useEffect(() => {
+    if (imageError) {
+      setShouldUseFallBackImage(true)
+      setImageError(false)
+    }
+  }, [imageError])
+
   return (
     <StyledRepresentative>
-      {/* Todo: only add image if it is not broken, i.e. has height and/or width */}
-      {repData.photo_url ? (
-        <div>
-          <img src={repData.photo_url} alt={`${repData.name}`} />
-        </div>
-      ) : null}
-      <h1>{repData.name}</h1>
-      <h2>
+      <RepImageContainer>
+        <img
+          onError={() => setImageError(true)}
+          src={
+            shouldUseFallBackImage || !repData.photo_url
+              ? fallBackImage
+              : repData.photo_url
+          }
+          alt={`${repData.name}`}
+        />
+      </RepImageContainer>
+      <h2>{repData.name}</h2>
+      <h3>
         {repData.elected_office} for {repData.district_name}
-      </h2>
+      </h3>
       <div>{repData.representative_set_name}</div>
-      <div>{repData.email}</div>
+      <div>Contact: {repData.email}</div>
       <div>{repData.party_name}</div>
       <div>
         <a href={repData.source_url}>Source</a>

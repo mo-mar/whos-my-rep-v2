@@ -4,13 +4,17 @@ import { useState, useEffect } from 'react'
 const StyledPostalCodeForm = styled.form`
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: center;
   label {
     display: flex;
     flex-direction: column;
+    align-items: center;
   }
   input {
     margin-top: 0.5rem;
+  }
+  button {
+    /* align-self: center; */
   }
 `
 
@@ -45,7 +49,7 @@ export default function PostalCodeForm({ handleSubmit }) {
       data-testid="postal-code-form"
     >
       <label data-testid="form-label">
-        Enter your postal code
+        Enter your postal code below:
         <input
           type="text"
           name="postal-code"
