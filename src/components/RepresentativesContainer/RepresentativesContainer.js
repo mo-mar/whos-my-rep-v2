@@ -7,16 +7,35 @@ import { useState } from 'react'
 
 const StyledRepContainer = styled.div`
   display: grid;
-  grid-template-columns: 1fr;
+  grid-template-columns: minmax(auto, 290px);
   grid-template-rows: auto 1fr;
   grid-row-gap: 1rem;
   justify-items: center;
-  width: 100%;
+
+  @media (min-width: 400px) {
+    grid-template-columns: minmax(auto, 400px);
+  }
+
+  @media (min-width: 600px) {
+    grid-template-columns: minmax(auto, 600px);
+  }
+
+  @media (min-width: 800px) {
+    grid-row: 1;
+    grid-column: 2;
+  }
 `
 
 const StyledOfficeButtons = styled.div`
   display: flex;
-  column-gap: 0.2rem;
+  height: 80px;
+  font-size: 0.8rem;
+  Button {
+    border-radius: 0;
+    border: 2px solid black;
+    max-width: 100px;
+    background-color: #7276af;
+  }
 `
 export default function RepresentativesContainer({ representatives }) {
   const [selectedOffice, setSelectedOffice] = useState('')

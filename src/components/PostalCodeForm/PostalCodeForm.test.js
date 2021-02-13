@@ -1,6 +1,7 @@
-import { render, screen } from '@testing-library/react'
+import { render, screen, fireEvent } from '@testing-library/react'
 import PostalCodeForm from './PostalCodeForm'
 import userEvent from '@testing-library/user-event'
+import App from '../../App'
 
 test('PostalCodeForm renders', () => {
   render(<PostalCodeForm />)
@@ -22,7 +23,7 @@ test('form has label and required input', () => {
 })
 
 test('error appears if postal code invalid', async () => {
-  render(<PostalCodeForm />)
+  render(<App />)
   let input = screen.getByTestId('postal-code-input')
   userEvent.type(input, 'S')
   expect(screen.queryByTestId('postal-code-error')).toBeTruthy()
@@ -30,4 +31,11 @@ test('error appears if postal code invalid', async () => {
   expect(screen.queryByTestId('postal-code-error')).toBeFalsy()
   userEvent.type(input, '{backspace}')
   expect(screen.queryByTestId('postal-code-error')).toBeTruthy()
+})
+
+test('form converts text to uppercase and removes spaces', async () => {
+  render(<PostalCodeForm />)
+  let input = screen.getByTestId('postal-code-input')
+  userEvent.type(input, 'm6k{space}3p8')
+  expect(input.value).toBe('M6K3P8')
 })

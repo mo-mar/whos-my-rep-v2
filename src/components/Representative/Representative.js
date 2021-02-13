@@ -1,34 +1,10 @@
-/**
- * Full data available in repData prop that is passed in:
- *  Note: only the following are available in all responses
- * 
- * name
-district_name
-elected_office
-source_url
-
-
-elected_office: "MPP"
-email: "BKarpoche-QP@ndp.on.ca"
-extra: {constituency_email: "BKarpoche-CO@ndp.on.ca"}
-first_name: "Bhutila"
-gender: ""
-last_name: "Karpoche"
-name: "Bhutila Karpoche"
-offices: [{type: "legislature", fax: "1 416 763-5640"}, {type: "constituency", tel: "1 416 763-5630"}]
-party_name: "New Democratic Party of Ontario"
-personal_url: ""
-photo_url: "https://www.ola.org/sites/default/files/member/profile-photo/bhutila_karpoche.jpg"
-related: {boundary_url: "/boundaries/ontario-electoral-districts-representation-act-2015/parkdale-high-park/",…}
-representative_set_name: "Legislative Assembly of Ontario"
-source_url: "https://www.ola.org/en/members/current/contact-information"
-url: "https://www.ola.org/en/members/all/bhutila-karpoche"} param0 
- */
-
 import styled from 'styled-components'
 import fallBackImage from '../../Images/blank-profile-pic.png'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEnvelope } from '@fortawesome/free-solid-svg-icons'
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useRef } from 'react'
+
 const StyledRepresentative = styled.li`
   border: 1px solid black;
   padding: 0.8rem;
@@ -40,6 +16,13 @@ const StyledRepresentative = styled.li`
   row-gap: 1rem;
 `
 
+const StyledContactContainer = styled.div`
+  display: flex;
+  svg {
+    margin-right: 8px;
+  }
+`
+
 const RepImageContainer = styled.div`
   width: 70%;
   margin-top: 0.8rem;
@@ -47,11 +30,15 @@ const RepImageContainer = styled.div`
     width: 100%;
     border-radius: 10%;
   }
+  @media (min-width: 600px) {
+    width: 50%;
+  }
 `
 
 export default function Representative({ repData }) {
   const [imageError, setImageError] = useState(false)
   const [shouldUseFallBackImage, setShouldUseFallBackImage] = useState(false)
+  const imageRef = useRef()
 
   useEffect(() => {
     if (imageError) {
@@ -60,11 +47,30 @@ export default function Representative({ repData }) {
     }
   }, [imageError])
 
+  useEffect(() => {
+    let timeout = setTimeout(() => {
+      checkForBrokenImage()
+    }, 3000)
+
+    return () => {
+      clearTimeout(timeout)
+    }
+  }, [])
+
+  const checkForBrokenImage = () => {
+    let image = imageRef.current
+    if (image && !image.height) {
+      setShouldUseFallBackImage(true)
+      setImageError(false)
+    }
+  }
+
   return (
     <StyledRepresentative>
       <RepImageContainer>
         <img
           onError={() => setImageError(true)}
+          ref={imageRef}
           src={
             shouldUseFallBackImage || !repData.photo_url
               ? fallBackImage
@@ -78,8 +84,11 @@ export default function Representative({ repData }) {
         {repData.elected_office} for {repData.district_name}
       </h3>
       <div>{repData.representative_set_name}</div>
-      <div>Contact: {repData.email}</div>
-      <div>{repData.party_name}</div>
+      {repData.party_name ? <div>{repData.party_name}</div> : null}
+      <StyledContactContainer>
+        <FontAwesomeIcon icon={faEnvelope} />
+        {repData.email}
+      </StyledContactContainer>
       <div>
         <a href={repData.source_url}>Source</a>
       </div>

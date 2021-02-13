@@ -8,6 +8,9 @@ const StyledHeader = styled.header`
   align-items: center;
   justify-content: space-between;
   text-align: center;
+  h1 {
+    color: #3283ca;
+  }
 `
 
 export default function header() {
@@ -15,7 +18,7 @@ export default function header() {
     <StyledHeader>
       <NavBar />
       <h1 data-testid="header">Who's My Rep?</h1>
-      <h4>Your one-stop stop to finding your political representatives.</h4>
+      <h4>Your one-stop shop to finding your political representatives.</h4>
     </StyledHeader>
   )
 }

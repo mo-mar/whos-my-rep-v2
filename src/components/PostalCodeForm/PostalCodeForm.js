@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { useState, useEffect } from 'react'
+import Button from '../Button/Button'
 
 const StyledPostalCodeForm = styled.form`
   display: flex;
@@ -12,9 +13,36 @@ const StyledPostalCodeForm = styled.form`
   }
   input {
     margin-top: 0.5rem;
+    display: block;
+    width: 100%;
+    padding: 8px 16px;
+    line-height: 25px;
+    font-size: 14px;
+    font-weight: 500;
+    font-family: inherit;
+    border-radius: 6px;
+    -webkit-appearance: none;
+    border: 1px solid black;
+    transition: border 0.3s ease;
+    font-size: 1rem;
+    text-align: center;
   }
-  button {
-    /* align-self: center; */
+  Button {
+    color: #fff !important;
+    text-transform: uppercase;
+    text-decoration: none;
+    background: #3283ca;
+    padding: 1rem;
+    border-radius: 30px;
+    display: inline-block;
+    border: none;
+    transition: all 0.4s ease 0s;
+    margin: 0.8rem 0;
+  }
+
+  @media (min-width: 800px) {
+    grid-row: 2;
+    grid-column: 1;
   }
 `
 
@@ -61,13 +89,9 @@ export default function PostalCodeForm({ handleSubmit }) {
           }
         />
       </label>
-      <button
-        data-testid="submit-button"
-        disabled={!postalCodeIsValid}
-        type="submit"
-      >
+      <Button data-testid="submit" disabled={!postalCodeIsValid} type="submit">
         Submit
-      </button>
+      </Button>
       {error ? <div data-testid="postal-code-error">{error}</div> : null}
     </StyledPostalCodeForm>
   )
