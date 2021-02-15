@@ -5,26 +5,26 @@ export const sortRepsByOfficeType = representatives => {
   let isMP = 'mp'
 
   let sortedRepresentatives = {
-    federal: [],
-    provincial: [],
-    mayor: [],
-    municipal: [],
+    Federal: [],
+    Provincial: [],
+    Mayor: [],
+    Municipal: [],
   }
 
   representatives.forEach(rep => {
     let officeType = rep.elected_office.toLowerCase()
 
     if (isProvincialReps.includes(officeType)) {
-      sortedRepresentatives.provincial.push(rep)
+      sortedRepresentatives.Provincial.push(rep)
       return
     } else if (officeType === isMayor || officeType === isMaire) {
-      sortedRepresentatives.mayor.push(rep)
+      sortedRepresentatives.Mayor.push(rep)
       return
     } else if (officeType === isMP) {
-      sortedRepresentatives.federal.push(rep)
+      sortedRepresentatives.Federal.push(rep)
       return
     } else {
-      sortedRepresentatives.municipal.push(rep)
+      sortedRepresentatives.Municipal.push(rep)
       return
     }
   })

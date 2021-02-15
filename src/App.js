@@ -1,18 +1,20 @@
 import { useState, useEffect } from 'react'
 import Layout from './components/Layout/Layout'
 import PostalCodeForm from './components/PostalCodeForm/PostalCodeForm'
-import Representatives from './components/Representatives/Representatives'
+import RepresentativesContainer from './components/RepresentativesContainer/RepresentativesContainer'
 import { getRepresentatives } from './Utils/APIRequests'
+import Loader from 'react-loader-spinner'
 
 function App() {
   const [representatives, setRepresentatives] = useState([])
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState('')
+
   useEffect(() => {
-    if (representatives.length) {
+    if (representatives.length || error) {
       setIsLoading(false)
     }
-  }, [representatives])
+  }, [representatives, error])
 
   const handleFormSubmit = (e, postalCode) => {
     e.preventDefault()
@@ -22,25 +24,28 @@ function App() {
       if (res.length) {
         setRepresentatives(res)
       } else {
-        setError(res)
+        alert(res)
+        setError('Request failed. Please try again later.')
       }
     })
   }
 
-  let repList = representatives.length ? (
-    <Representatives representatives={representatives} />
-  ) : null
+  let representativesContainer =
+    !isLoading && representatives.length ? (
+      <RepresentativesContainer representatives={representatives} />
+    ) : null
 
-  let loadingSpinner = isLoading ? <span>loading...</span> : null
+  let loadingSpinner = isLoading ? (
+    <Loader type="Bars" color="#00BFFF" height={60} width={60} />
+  ) : null
 
   return (
     <Layout>
       <PostalCodeForm
         handleSubmit={handleFormSubmit}
-        setRepresentatives={setRepresentatives}
         setIsLoading={setIsLoading}
       />
-      {repList}
+      {representativesContainer}
       {error ? <p>{error}</p> : null}
       {loadingSpinner}
     </Layout>

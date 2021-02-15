@@ -1,11 +1,29 @@
 import Representative from '../Representative/Representative'
+import styled from 'styled-components'
+import { v4 as uuidv4 } from 'uuid'
+
+const Container = styled.div`
+  width: 100%;
+  height: 90vh;
+  max-height: 600px;
+  overflow-y: auto;
+`
+
+const StyledRepresentativeList = styled.ul`
+  display: flex;
+  flex-direction: column;
+  max-height: 400px;
+  row-gap: 1.5rem;
+`
 
 export default function RepresentativeList({ reps }) {
   let renderedReps = reps.map(rep => {
-    // To do: give each rep a unique id with uuid for key
-    return (
-      <Representative repData={rep} key={`${rep.name} + ${Math.random()}`} />
-    )
+    return <Representative key={uuidv4()} repData={rep} />
   })
-  return <div>{renderedReps}</div>
+
+  return (
+    <Container>
+      <StyledRepresentativeList>{renderedReps}</StyledRepresentativeList>
+    </Container>
+  )
 }

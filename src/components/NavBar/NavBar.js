@@ -1,7 +1,7 @@
 import styled from 'styled-components'
 
 const StyledNavBar = styled.ul`
-  list-style: none;
+  align-self: flex-end;
 `
 export default function NavBar() {
   return (
