@@ -12,7 +12,6 @@ const StyledLayout = styled.div`
   grid-row-gap: 2rem;
   grid-template-rows: auto auto 1fr;
   justify-items: center;
-
   @media (min-width: 400px) {
     max-width: 600px;
   }

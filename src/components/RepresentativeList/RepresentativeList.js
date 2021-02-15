@@ -14,15 +14,13 @@ const StyledRepresentativeList = styled.ul`
   flex-direction: column;
   max-height: 400px;
   row-gap: 1.5rem;
-
-  /* @media (min-width: 800px) {
-    max-height: 90%;
-  } */
 `
+
 export default function RepresentativeList({ reps }) {
   let renderedReps = reps.map(rep => {
     return <Representative key={uuidv4()} repData={rep} />
   })
+
   return (
     <Container>
       <StyledRepresentativeList>{renderedReps}</StyledRepresentativeList>
