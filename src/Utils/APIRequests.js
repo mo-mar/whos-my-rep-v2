@@ -11,19 +11,21 @@ export async function getRepresentatives(postalCode) {
   // temporary workaround for CORS in local development
   // http(s)://thingproxy.freeboard.io/fetch/
   // https://cors-anywhere.herokuapp.com
-  if (window.location.host === 'localhost:3000') {
-    url =
-      'https://thingproxy.freeboard.io/fetch/https://represent.opennorth.ca/representatives'
-  } else {
-    url = 'https://represent.opennorth.ca/representatives'
-  }
+  // if (window.location.host === 'localhost:3000') {
+  //   url =
+  //     'https://thingproxy.freeboard.io/fetch/https://represent.opennorth.ca/representatives'
+  // } else {
+  //   url = 'https://represent.opennorth.ca/representatives'
+  // }
 
   try {
     let { lat, lng } = await getCoordinates(postalCode)
-    let response = await axios.get(url, {
+    let response = await axios({
       method: 'GET',
       dataResponse: 'JSON',
+      url: 'https://proxy.hackeryou.com',
       params: {
+        reqUrl: `https://represent.opennorth.ca/representatives/`,
         point: `${lat}, ${lng}`,
         limit: 100,
       },
