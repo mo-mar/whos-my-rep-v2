@@ -10,7 +10,7 @@ export async function getRepresentatives(postalCode) {
   try {
     let { lat, lng } = await getCoordinates(postalCode)
     let latAndLng = `${lat},${lng}`
-    let response = axios({
+    let response = await axios({
       method: 'GET',
       url: 'https://proxy.hackeryou.com',
       dataResponse: 'json',
