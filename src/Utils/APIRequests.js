@@ -50,7 +50,7 @@ export async function getCoordinates(postalCode) {
         method: 'GET',
         dataResponse: 'JSON',
         params: {
-          key: REACT_APP_MAPQUEST_KEY,
+          key: process.env.REACT_APP_MAPQUEST_KEY,
           location: postalCode,
         },
       }
