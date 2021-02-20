@@ -16,7 +16,7 @@ export async function getRepresentatives(postalCode) {
       dataResponse: 'json',
       params: {
         reqUrl: `https://represent.opennorth.ca/representatives/?point=${latAndLng}`,
-        limit: 100,
+        limit: 1000,
       },
       xmlToJSON: false,
     })
