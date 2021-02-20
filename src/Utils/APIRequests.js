@@ -16,19 +16,10 @@ export async function getRepresentatives(postalCode) {
       dataResponse: 'json',
       params: {
         reqUrl: `https://represent.opennorth.ca/representatives/?point=${latAndLng}`,
+        limit: 100,
       },
       xmlToJSON: false,
     })
-    // let response = await axios({
-    //   method: 'GET',
-    //   dataResponse: 'JSON',
-    //   url: 'https://proxy.hackeryou.com',
-    //   params: {
-    //     reqUrl: `https://represent.opennorth.ca/representatives/`,
-    //     point: `${lat}, ${lng}`,
-    //     limit: 100,
-    //   },
-    // })
     if (response && response.data.objects) {
       return response.data.objects
     }
