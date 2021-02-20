@@ -15,8 +15,7 @@ export async function getRepresentatives(postalCode) {
       url: 'https://proxy.hackeryou.com',
       dataResponse: 'json',
       params: {
-        reqUrl: `https://represent.opennorth.ca/representatives/?point=${latAndLng}`,
-        limit: 1000,
+        reqUrl: `https://represent.opennorth.ca/representatives/?limit=100&point=${latAndLng}`,
       },
       xmlToJSON: false,
     })
