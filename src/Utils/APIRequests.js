@@ -7,8 +7,6 @@ import axios from 'axios'
  */
 
 export async function getRepresentatives(postalCode) {
-  let { lat, lng } = await getCoordinates(postalCode)
-
   let url
   // temporary workaround for CORS in local development
   // http(s)://thingproxy.freeboard.io/fetch/
@@ -21,6 +19,7 @@ export async function getRepresentatives(postalCode) {
   }
 
   try {
+    let { lat, lng } = await getCoordinates(postalCode)
     let response = await axios.get(url, {
       method: 'GET',
       dataResponse: 'JSON',
@@ -45,7 +44,7 @@ export async function getRepresentatives(postalCode) {
 export async function getCoordinates(postalCode) {
   try {
     let response = await axios.get(
-      `http://www.mapquestapi.com/geocoding/v1/address`,
+      `https://www.mapquestapi.com/geocoding/v1/address`,
       {
         method: 'GET',
         dataResponse: 'JSON',
@@ -62,6 +61,6 @@ export async function getCoordinates(postalCode) {
       }
     }
   } catch (error) {
-    console.log(error)
+    alert(error)
   }
 }

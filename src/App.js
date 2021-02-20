@@ -23,11 +23,14 @@ function App() {
     setIsLoading(true)
 
     getRepresentatives(postalCode).then(res => {
-      if (res.length) {
-        setRepresentatives(res)
-      } else {
-        alert(res)
+      try {
+        if (res.length) {
+          setRepresentatives(res)
+        }
+      } catch (e) {
         setError('Request failed. Please try again later.')
+      } finally {
+        setIsLoading(false)
       }
     })
   }
