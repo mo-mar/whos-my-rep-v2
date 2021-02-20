@@ -9,16 +9,26 @@ import axios from 'axios'
 export async function getRepresentatives(postalCode) {
   try {
     let { lat, lng } = await getCoordinates(postalCode)
-    let response = await axios({
+    let latAndLng = `${lat},${lng}`
+    let response = axios({
       method: 'GET',
-      dataResponse: 'JSON',
       url: 'https://proxy.hackeryou.com',
+      dataResponse: 'json',
       params: {
-        reqUrl: `https://represent.opennorth.ca/representatives/`,
-        point: `${lat}, ${lng}`,
-        limit: 100,
+        reqUrl: `https://represent.opennorth.ca/representatives/?point=${latAndLng}`,
       },
+      xmlToJSON: false,
     })
+    // let response = await axios({
+    //   method: 'GET',
+    //   dataResponse: 'JSON',
+    //   url: 'https://proxy.hackeryou.com',
+    //   params: {
+    //     reqUrl: `https://represent.opennorth.ca/representatives/`,
+    //     point: `${lat}, ${lng}`,
+    //     limit: 100,
+    //   },
+    // })
     if (response && response.data.objects) {
       return response.data.objects
     }
