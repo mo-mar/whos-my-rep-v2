@@ -3,7 +3,7 @@ import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid'
 
 const Container = styled.div`
-  width: 100%;
+  width: 80%;
   height: 90vh;
   max-height: 600px;
   overflow-y: auto;
