@@ -46,13 +46,16 @@ function App() {
       <Switch>
         <Route exact path="/">
           <Layout reps={representatives}>
-            <PostalCodeForm
-              handleSubmit={handleFormSubmit}
-              setIsLoading={setIsLoading}
-            />
+            {isLoading ? (
+              loadingSpinner
+            ) : (
+              <PostalCodeForm
+                handleSubmit={handleFormSubmit}
+                setIsLoading={setIsLoading}
+              />
+            )}
             {representativesContainer}
             {error ? <p>{error}</p> : null}
-            {loadingSpinner}
           </Layout>
         </Route>
         <Route path="/about">
