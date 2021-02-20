@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react'
 import Layout from './components/Layout/Layout'
+import About from './components/About/About'
 import PostalCodeForm from './components/PostalCodeForm/PostalCodeForm'
 import RepresentativesContainer from './components/RepresentativesContainer/RepresentativesContainer'
 import { getRepresentatives } from './Utils/APIRequests'
 import Loader from 'react-loader-spinner'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 function App() {
   const [representatives, setRepresentatives] = useState([])
@@ -40,15 +42,26 @@ function App() {
   ) : null
 
   return (
-    <Layout>
-      <PostalCodeForm
-        handleSubmit={handleFormSubmit}
-        setIsLoading={setIsLoading}
-      />
-      {representativesContainer}
-      {error ? <p>{error}</p> : null}
-      {loadingSpinner}
-    </Layout>
+    <Router>
+      <Switch>
+        <Route exact path="/">
+          <Layout reps={representatives}>
+            <PostalCodeForm
+              handleSubmit={handleFormSubmit}
+              setIsLoading={setIsLoading}
+            />
+            {representativesContainer}
+            {error ? <p>{error}</p> : null}
+            {loadingSpinner}
+          </Layout>
+        </Route>
+        <Route path="/about">
+          <Layout>
+            <About />
+          </Layout>
+        </Route>
+      </Switch>
+    </Router>
   )
 }
 

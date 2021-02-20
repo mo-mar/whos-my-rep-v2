@@ -12,15 +12,16 @@ const StyledLayout = styled.div`
   grid-row-gap: 2rem;
   grid-template-rows: auto auto 1fr;
   justify-items: center;
+  transition: all 0.5s ease-in;
+
   @media (min-width: 400px) {
     max-width: 600px;
   }
   @media (min-width: 800px) {
     max-width: 1200px;
     grid-template-columns: ${props =>
-      props.didLoadRepresentatives ? '0.8fr 0.8fr' : '1fr'};
+      props.hasLoadedReps ? '0.8fr 1fr' : '1fr'};
     grid-column-gap: 1rem;
-    transition: all 0.5s ease-in;
     grid-template-rows: minmax(auto, 150px) 1fr;
     padding: 2rem;
     Header {
@@ -31,16 +32,10 @@ const StyledLayout = styled.div`
   }
 `
 
-export default function Layout({ children }) {
-  const didLoadRepresentatives = children => {
-    return children.some(child =>
-      child?.type?.name?.includes('RepresentativesContainer')
-    )
-  }
-
+export default function Layout({ children, reps }) {
   return (
     <StyledLayout
-      didLoadRepresentatives={didLoadRepresentatives(children)}
+      hasLoadedReps={reps?.length ? true : false}
       data-testid="layout-container"
     >
       <Header />

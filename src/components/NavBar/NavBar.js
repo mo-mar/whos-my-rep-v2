@@ -1,4 +1,5 @@
 import styled from 'styled-components'
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 
 const StyledNavBar = styled.ul`
   align-self: flex-end;
@@ -7,10 +8,10 @@ export default function NavBar() {
   return (
     <StyledNavBar data-testid="nav-bar">
       <li>
-        <a href="#">Home</a>
+        <Link to="/">Home</Link>
       </li>
       <li>
-        <a href="#">About</a>
+        <Link to="/about">About</Link>
       </li>
     </StyledNavBar>
   )
