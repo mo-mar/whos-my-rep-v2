@@ -18,6 +18,7 @@ const StyledRepresentative = styled.li`
 
 const StyledContactContainer = styled.div`
   display: flex;
+  flex-wrap: wrap;
   svg {
     margin-right: 8px;
   }
@@ -85,10 +86,12 @@ export default function Representative({ repData }) {
       </h3>
       <div>{repData.representative_set_name}</div>
       {repData.party_name ? <div>{repData.party_name}</div> : null}
-      <StyledContactContainer>
-        <FontAwesomeIcon icon={faEnvelope} />
-        {repData.email}
-      </StyledContactContainer>
+      {repData.email ? (
+        <StyledContactContainer>
+          <FontAwesomeIcon icon={faEnvelope} />
+          <span>{repData.email}</span>
+        </StyledContactContainer>
+      ) : null}
       <div>
         <a href={repData.source_url}>Source</a>
       </div>

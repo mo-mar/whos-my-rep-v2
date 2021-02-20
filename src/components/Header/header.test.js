@@ -1,8 +1,8 @@
 import { render, screen } from '@testing-library/react'
-import Header from './Header'
+import App from '../../App'
 
 test('header renders', () => {
-  render(<Header />)
+  render(<App />)
   expect(screen.getByTestId('header')).toBeTruthy()
   expect(screen.getByTestId('header')).toHaveTextContent(`Who's My Rep?`)
 })

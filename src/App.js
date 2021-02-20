@@ -5,7 +5,7 @@ import PostalCodeForm from './components/PostalCodeForm/PostalCodeForm'
 import RepresentativesContainer from './components/RepresentativesContainer/RepresentativesContainer'
 import { getRepresentatives } from './Utils/APIRequests'
 import Loader from 'react-loader-spinner'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 function App() {
   const [representatives, setRepresentatives] = useState([])
@@ -43,27 +43,25 @@ function App() {
 
   return (
     <Router>
-      <Switch>
-        <Route exact path="/">
-          <Layout reps={representatives}>
-            {isLoading ? (
-              loadingSpinner
-            ) : (
-              <PostalCodeForm
-                handleSubmit={handleFormSubmit}
-                setIsLoading={setIsLoading}
-              />
-            )}
-            {representativesContainer}
-            {error ? <p>{error}</p> : null}
-          </Layout>
-        </Route>
-        <Route path="/about">
-          <Layout>
-            <About />
-          </Layout>
-        </Route>
-      </Switch>
+      <Route exact path="/">
+        <Layout reps={representatives}>
+          {isLoading ? (
+            loadingSpinner
+          ) : (
+            <PostalCodeForm
+              handleSubmit={handleFormSubmit}
+              setIsLoading={setIsLoading}
+            />
+          )}
+          {representativesContainer}
+          {error ? <p>{error}</p> : null}
+        </Layout>
+      </Route>
+      <Route path="/about">
+        <Layout>
+          <About />
+        </Layout>
+      </Route>
     </Router>
   )
 }

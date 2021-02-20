@@ -3,10 +3,13 @@ import styled from 'styled-components'
 import { v4 as uuidv4 } from 'uuid'
 
 const Container = styled.div`
-  width: 80%;
+  width: 100%;
   height: 90vh;
   max-height: 600px;
   overflow-y: auto;
+  @media (min-width: 600px) {
+    width: 80%;
+  }
 `
 
 const StyledRepresentativeList = styled.ul`

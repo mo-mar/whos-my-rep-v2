@@ -18,7 +18,7 @@ const StyledAboutContainer = styled.div`
 `
 export default function About() {
   return (
-    <StyledAboutContainer>
+    <StyledAboutContainer data-testid="about-container">
       <h3>What</h3>
       <p>
         "Who's My Rep?" is a simple tool to connect Canadians with their
