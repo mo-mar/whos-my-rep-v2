@@ -18,21 +18,21 @@ function App() {
     }
   }, [representatives, error])
 
-  const handleFormSubmit = (e, postalCode) => {
+  const handleFormSubmit = async (e, postalCode) => {
     e.preventDefault()
     setIsLoading(true)
 
-    getRepresentatives(postalCode).then(res => {
-      try {
-        if (res.length) {
-          setRepresentatives(res)
-        }
-      } catch (e) {
-        setError('Request failed. Please try again later.')
-      } finally {
-        setIsLoading(false)
+    try {
+      let reps = await getRepresentatives(postalCode)
+      if (reps.length) {
+        setRepresentatives(reps)
       }
-    })
+    } catch (e) {
+      alert(e)
+      setError('Request failed. Please try again later.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   let representativesContainer =
