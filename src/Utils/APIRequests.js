@@ -1,4 +1,3 @@
-import * as secrets from '../secrets.json'
 import axios from 'axios'
 
 /**
